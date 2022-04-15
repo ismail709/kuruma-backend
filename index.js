@@ -10,7 +10,7 @@ const app = express();
 
 const PORT = process.env.PORT || 5000;
 try {
-    const mdb = await mongoose.connect(
+    await mongoose.connect(
         process.env.MDB_URL,
         {
             useNewUrlParser: true,

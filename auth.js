@@ -45,7 +45,7 @@ export const configureAuthentication = (app) => {
     passport.deserializeUser((user, done) => {
         done(null, user);
     });
-    app.post("/signin", passport.authenticate("local"));
+    app.post("/login", passport.authenticate("local"));
 
     app.post("/signup", createUser);
 

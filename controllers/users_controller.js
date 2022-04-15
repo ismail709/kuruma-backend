@@ -11,7 +11,6 @@ export const getUserById = (id) => {
 
 export const createUser = async (req, res) => {
     // check if the user already exist
-    console.log("test ", req.isAuthenticated());
     const data = req.body;
     const existedUser = await User.find({ email: data.email });
     if (existedUser.length > 0) {
