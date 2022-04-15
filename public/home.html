@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>home</title>
+    </head>
+    <body>
+        <!-- {
+            name: String,
+            imgUrl: String,
+            coordinates: [Number],
+            state: {
+                type: String,
+                default: "available",
+            },
+            last_checked: Date,
+            trip_history: [Schema.Types.ObjectId],
+        }-->
+        <form
+            action="/addcar"
+            method="post"
+            style="display: flex; flex-direction: column; gap: 1em"
+        >
+            <label for="name">Name</label>
+            <input name="name" type="text" />
+            <label for="lng">longitude</label>
+            <input name="lng" type="text" />
+            <label for="lat">latitude</label>
+            <input name="lat" type="text" />
+            <label for="cost">Cost</label>
+            <input name="cost" type="number" />
+            <label for="country">Country</label>
+            <input name="country" type="text" />
+            <input
+                type="submit"
+                value="add car"
+                style="padding: 1em; font-size: larger"
+            />
+        </form>
+    </body>
+</html>
