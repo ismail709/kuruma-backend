@@ -12,6 +12,7 @@ export const getUserById = (id) => {
 export const createUser = async (req, res) => {
     // check if the user already exist
     const data = req.body;
+    console.log(data);
     const existedUser = await User.find({ email: data.email });
     if (existedUser.length > 0) {
         res.status(400).json({
@@ -23,10 +24,8 @@ export const createUser = async (req, res) => {
             .then((resp) => {
                 req.login(resp, (err) => {
                     if (err) {
-                        console.log(err);
                         return next(err);
                     }
-                    console.log("test ", req.isAuthenticated());
                     return res.json({
                         message: "Account created!",
                         user: resp,
@@ -34,7 +33,6 @@ export const createUser = async (req, res) => {
                 });
             })
             .catch((e) => {
-                console.log(e);
                 res.status(500).json({
                     message: e,
                 });

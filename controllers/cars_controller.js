@@ -3,8 +3,6 @@ import Car from "../models/carmodel.js";
 export const getCars = async (req, res) => {
     try {
         let cars = await Car.find({});
-        console.log(req.hostname + "" + req.originalUrl);
-        console.log(req.session);
         res.json(cars);
     } catch (error) {
         console.log(error);
@@ -26,7 +24,6 @@ export const getCars = async (req, res) => {
 */
 export const addCar = async (req, res) => {
     try {
-        console.log(req.body);
         const car = req.body;
         const ac = await Car.create({
             name: car.name,
@@ -34,7 +31,6 @@ export const addCar = async (req, res) => {
             coordinates: [car.lng, car.lat],
             last_checked: Date.now(),
         });
-        console.log(ac);
         res.redirect("/addcars");
     } catch (error) {
         console.log(error);

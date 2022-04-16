@@ -16,7 +16,6 @@ export const createTrip = (req, res) => {
     // check if the user exists
     const data = req.body;
     const user = getUserById(data.user_id);
-    console.log(user);
     // create trip
     // set car state to unavailable
     // redirect user to trips screen

@@ -7,7 +7,7 @@ import {
     createUser,
     getUser,
     getUserById,
-} from "./controllers/users_controller.js";
+} from "../controllers/users_controller.js";
 export const configureAuthentication = (app) => {
     app.use(
         session({
@@ -23,14 +23,13 @@ export const configureAuthentication = (app) => {
         new LocalStrategy(
             { usernameField: "email" },
             (email, password, done) => {
-                console.log(email, password);
 
                 getUser(email, password)
                     .then((res) => {
                         if (res) {
                             done(null, { id: res._id, username: res.username });
                         } else {
-                            done(null, false, { message: "tatatatatattat" });
+                            done(null, false, { message: "User not found" });
                         }
                     })
                     .catch((err) => {
@@ -50,7 +49,6 @@ export const configureAuthentication = (app) => {
     app.post("/signup", createUser);
 
     app.get("/logout", (req, res) => {
-        console.log("LOGOUT");
         req.logout();
         res.redirect("/");
     });

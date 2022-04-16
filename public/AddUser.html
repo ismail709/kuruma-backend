@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Add User</title>
+  </head>
+  <body>
+    <!-- 
+{
+    name: String,
+    email: String,
+    password: String,
+    salt: String,
+    phone_number: String,
+    address: {
+        city: String,
+        country: String,
+    },
+    credit_card: {
+        fullname: String,
+        card_number: Number,
+        expiration_date: Date,
+        cvv: Number,
+    },
+    trip_history: [Schema.Types.ObjectId],
+    active_trip: Schema.Types.ObjectId,
+}
+    -->
+    <div>
+      <form method="POST" action="/signup" style="display: flex;flex-direction: column;gap: 10px;">
+        <label>
+            name
+            <input type="text" name="name" >
+        </label>
+        <label>
+            email
+            <input type="email" name="email" >
+        </label>
+        <label>
+            password
+            <input type="text" name="password" >
+        </label>
+        <label>
+            phone number
+            <input type="text" name="phone_number" >
+        </label>
+        <label>
+            city
+            <input type="text" name="city" >
+        </label>
+        <label>
+            country
+            <input type="text" name="country" >
+        </label>
+        <input type="submit" value="add user" style="padding: 5px; font-size: larger;">
+      </form>
+    </div>
+  </body>
+</html>
