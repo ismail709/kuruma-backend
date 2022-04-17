@@ -2,6 +2,7 @@ import Car from "../models/carmodel.js";
 
 export const getCars = async (req, res) => {
     try {
+        console.log(req.user)
         let cars = await Car.find({});
         res.json(cars);
     } catch (error) {

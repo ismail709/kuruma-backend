@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import { configureAuthentication } from "./auth/index.js";
 import "./db_connection/index.js"
+import CarRouter from "./routes/cars_route.js"
 
 const app = express();
 
@@ -15,7 +16,7 @@ app.use(cors());
 configureAuthentication(app);
 
 // routes
-
+app.use("/cars",CarRouter);
 
 // serving car images to frontend
 app.use(express.static("public"));
