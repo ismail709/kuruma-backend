@@ -47,28 +47,44 @@ export const configureAuthentication = (app) => {
         )
     );
     passport.serializeUser((user, done) => {
-        console.log("serialize user");
+        console.log("ser")
         done(null, user);
     });
     passport.deserializeUser((user, done) => {
-        console.log("DEserialize user");
+        console.log("deser")
         done(null, user);
     });
+    app.get("/user",(req,res) => {
+        console.log("get user",req.isAuthenticated());
+        console.log("get user",req.user);
+        if(req.isAuthenticated()){
+            res.json({auth:true,user:req.user});
+        }else{
+            res.json({auth:false});
+        }
+        
+    })
     app.post("/login",(req,res,next) =>{
-        /*console.log("test")
-        if(req.user) res.send({auth:true});
-        else res.status(500).send({auth:false,message:req.session.messages});*/
         passport.authenticate("local",function(err,user,info){
         if(err) return next(err);
         if(!user) return res.json({auth:false,message:info.message});
-        res.json({auth:true});
+        req.login(user, (err) => {
+            if (err) {
+              res
+                .status(500)
+                .send({ message: "we encountered an internal error!" });
+            }
+            return res.json({auth:true,user:user});
+        });
+        
     })(req,res,next);
     });
 
     app.post("/signup", createUser);
 
-    app.get("/logout", (req, res) => {
+    app.post("/logout", (req, res) => {
         req.logout();
+        console.log(req.isAuthenticated())
         res.json({auth:false});
     });
 };

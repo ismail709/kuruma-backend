@@ -11,7 +11,10 @@ const PORT = process.env.PORT || 5000;
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+    "origin": "https://3000-ismail709-kuruma-t2b90ig0j3d.ws-eu40.gitpod.io",
+    "credentials": true,
+  }));
 
 configureAuthentication(app);
 
