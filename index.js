@@ -12,8 +12,9 @@ const PORT = process.env.PORT || 5000;
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cors({
-    "origin": "https://3000-ismail709-kuruma-t2b90ig0j3d.ws-eu40.gitpod.io",
-    "credentials": true,
+    origin: "https://3000-ismail709-kuruma-t2b90ig0j3d.ws-eu34.gitpod.io",
+    credentials: true,
+    preflightContinue:true,
   }));
 
 configureAuthentication(app);
@@ -29,3 +30,12 @@ app.listen(PORT, () => {
     console.log("server is listening on port " + PORT);
     console.log("click here: http://localhost:" + PORT);
 });
+
+
+/*
+TO CHECK ORIGIN URL
+(req,res,next) => {
+  console.log(req.headers);
+  next();
+},
+*/

@@ -11,11 +11,13 @@ export const getUserById = (id) => {
 };
 
 export const createUser = async (req, res) => {
+  console.log(req.body);
   // check if the user already exist
   const { email, password, ...rest } = req.body;
   const existedUser = await User.find({ email });
   if (existedUser.length > 0) {
     res.status(400).json({
+      isAccountCreated: false,
       message: "An account with this email already exists! Please sign in",
     });
   } else {
@@ -28,17 +30,19 @@ export const createUser = async (req, res) => {
             if (err) {
               res
                 .status(500)
-                .send({ message: "we encountered an internal error!" });
+                .send({ isAccountCreated: false,message: "we encountered an internal error!" });
             }
             return res.json({
-              message: "Account created!",
+              isAccountCreated: true,
               user: resp,
             });
           });
         })
         .catch((e) => {
+          console.log(e);
           res.status(500).json({
-            message: e,
+            isAccountCreated: false,
+            message: "we encountered an internal error!",
           });
         });
     });
