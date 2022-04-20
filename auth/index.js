@@ -24,20 +24,27 @@ export const configureAuthentication = (app) => {
         new LocalStrategy(
             { usernameField: "email" },
             (email, password, done) => {
-
                 getUser(email, password)
                     .then((res) => {
-                        console.log("response ",res)
+                        console.log("response ", res);
                         if (res) {
-                            bcrypt.compare(password, res.password,function(err, result) {
-                                if(err) return done(err);
-                                if(result === true){
-                                    return done(null, res);
+                            bcrypt.compare(
+                                password,
+                                res.password,
+                                function (err, result) {
+                                    if (err) return done(err);
+                                    if (result === true) {
+                                        return done(null, res);
+                                    }
+                                    done(null, false, {
+                                        message: "Email or Password incorrect!",
+                                    });
                                 }
-                                done(null, false, { message: "Email or Password incorrect!" });
+                            );
+                        } else {
+                            done(null, false, {
+                                message: "Email or Password incorrect!",
                             });
-                        }else{
-                            done(null, false, { message: "Email or Password incorrect!" });
                         }
                     })
                     .catch((err) => {
@@ -47,44 +54,42 @@ export const configureAuthentication = (app) => {
         )
     );
     passport.serializeUser((user, done) => {
-        console.log("ser")
+        console.log("ser");
         done(null, user);
     });
     passport.deserializeUser((user, done) => {
-        console.log("deser")
+        console.log("deser");
         done(null, user);
     });
-    app.get("/user",(req,res) => {
-        console.log("get user",req.isAuthenticated());
-        console.log("get user",req.user);
-        if(req.isAuthenticated()){
-            res.json({auth:true,user:req.user});
-        }else{
-            res.json({auth:false});
+    app.get("/user", (req, res) => {
+        console.log("get user", req.isAuthenticated());
+        console.log("get user", req.user);
+        if (req.isAuthenticated()) {
+            res.json({ auth: true, user: req.user });
+        } else {
+            res.json({ auth: false });
         }
-        
-    })
-    app.post("/login",(req,res,next) =>{
-        passport.authenticate("local",function(err,user,info){
-        if(err) return next(err);
-        if(!user) return res.json({auth:false,message:info.message});
-        req.login(user, (err) => {
-            if (err) {
-              res
-                .status(500)
-                .send({ message: "we encountered an internal error!" });
-            }
-            return res.json({auth:true,user:user});
-        });
-        
-    })(req,res,next);
+    });
+    app.post("/login", (req, res, next) => {
+        passport.authenticate("local", function (err, user, info) {
+            if (err) return next(err);
+            if (!user) return res.json({ auth: false, message: info.message });
+            req.login(user, (err) => {
+                if (err) {
+                    res.status(500).send({
+                        message: "we encountered an internal error!",
+                    });
+                }
+                return res.json({ auth: true, user: user });
+            });
+        })(req, res, next);
     });
 
     app.post("/signup", createUser);
 
     app.post("/logout", (req, res) => {
         req.logout();
-        console.log(req.isAuthenticated())
-        res.json({auth:false});
+        console.log("logout");
+        res.json({ auth: false });
     });
 };
