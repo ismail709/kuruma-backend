@@ -1,6 +1,7 @@
 import Car from "../models/carmodel.js";
 
 export const getCars = async (req, res) => {
+    console.log(req.method + " to /api/cars");
     try {
         let cars = await Car.find({});
         res.json(cars);
@@ -23,6 +24,7 @@ export const getCars = async (req, res) => {
 }
 */
 export const addCar = async (req, res) => {
+    console.log(req.method + " to /api/car/" + req.params);
     try {
         const car = req.body;
         const ac = await Car.create({
@@ -38,6 +40,7 @@ export const addCar = async (req, res) => {
 };
 
 export const getCarById = async (req, res) => {
+    console.log(req.method + " to /api/car/" + req.params.id);
     try {
         let car = await Car.find({ _id: req.params.id });
         res.json(car);

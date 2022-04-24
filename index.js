@@ -3,6 +3,7 @@ import cors from "cors";
 import { configureAuthentication } from "./auth/index.js";
 import "./db_connection/index.js";
 import CarRouter from "./routes/cars_route.js";
+import TripRoute from "./routes/trips_route.js";
 
 const app = express();
 
@@ -20,7 +21,8 @@ app.use(
 configureAuthentication(app);
 
 // routes
-app.use("/cars", CarRouter);
+app.use("/api/cars", CarRouter);
+app.use("/api/trips", TripRoute);
 
 // serving car images to frontend
 app.use(express.static("public"));

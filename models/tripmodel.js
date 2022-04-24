@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import STATE from "./constants";
+import { STATE } from "./constants.js";
 
 const Schema = mongoose.Schema;
 

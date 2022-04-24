@@ -61,7 +61,7 @@ export const configureAuthentication = (app) => {
         console.log("deser");
         done(null, user);
     });
-    app.get("/user", (req, res) => {
+    app.get("/api/user", (req, res) => {
         console.log("get user", req.isAuthenticated());
         console.log("get user", req.user);
         if (req.isAuthenticated()) {
@@ -70,7 +70,7 @@ export const configureAuthentication = (app) => {
             res.json({ auth: false });
         }
     });
-    app.post("/login", (req, res, next) => {
+    app.post("/api/login", (req, res, next) => {
         passport.authenticate("local", function (err, user, info) {
             if (err) return next(err);
             if (!user) return res.json({ auth: false, message: info.message });
@@ -85,9 +85,9 @@ export const configureAuthentication = (app) => {
         })(req, res, next);
     });
 
-    app.post("/signup", createUser);
+    app.post("/api/signup", createUser);
 
-    app.post("/logout", (req, res) => {
+    app.post("/api/logout", (req, res) => {
         req.logout();
         console.log("logout");
         res.json({ auth: false });

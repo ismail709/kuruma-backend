@@ -1,4 +1,5 @@
 import { getUserById } from "./users_controller.js";
+import Trip from "../models/tripmodel.js";
 
 export const getUserTripsById = (req, res) => {
     // check if the user exists
@@ -12,13 +13,18 @@ export const getUserActiveTripsById = (req, res) => {
     // send it
 };
 
-export const createTrip = (req, res) => {
+export const createTrip = async (req, res) => {
     // check if the user exists
     const data = req.body;
     const user = getUserById(data.user_id);
-    // create trip
-    // set car state to unavailable
-    // redirect user to trips screen
+    console.log(req.body);
+    if (user) {
+        // create trip
+        const r = await Trip.create(data);
+        console.log(r);
+        // set car state to unavailable
+        // redirect user to trips screen
+    }
 };
 
 export const updateTrip = (req, res) => {
